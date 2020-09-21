@@ -115,5 +115,31 @@ void show(){
 >>原理说明
 + 静态是随着类的加载就加载了,也是随着类的消失而消失了.
 + 静态优先于对象存在,被对象共享.(不要用对象去调用静态方法和参数)
-+ 因为静态先存在于内存中无法方位后来的对象中的数据,所以静态方法无法方问非静态.而且无法书写this,因为这时对象有可能不存在,this没有任何指向.ß
++ 因为静态先存在于内存中无法方位后来的对象中的数据,所以静态方法无法方问非静态.而且无法书写this,因为这时对象有可能不存在,this没有任何指向.
+
+```
+/**
+静态的主函数
+public static void main(String[] args)
+
+public : 权限最大
+static ：不需要对象，直接用给定的类名就可以访问该函数了
+void   ：不需要返回值
+main   ：函数名，该名称是固定的
+String[] args ： 主函数的参数列表，字符传数组类型的参数。
+args ：参数，该名称就是一个变量名
+
+class MainDemo {
+    public static void main(String[] args) {
+       System.out.println(args);//[Ljava.lang.String;@4dc63996  //说明jvm传递了一个字符串类型的数组实体
+       System.out.println(args.length);//0 jvm 传递的是 new String[0];
+       System.out.println(args[0]);//java.lang.ArrayIndexOutOfBoundsException:
+       // java MainDemo pine jack ->args.length = 2 ;args[0] = pine
+
+    }
+}
+
+*/
+```
+
 
