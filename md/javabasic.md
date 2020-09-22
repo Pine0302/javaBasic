@@ -156,3 +156,52 @@ class MainDemo {
   + 内存存储区域不同  
     + 静态变量存储在方法区中.(数据共享区)
     + 成员变量存储在堆内存中.
+
+>> 静态代码块（StaticCodeDemo）
++ 特点：随着类的加载而执行，而且仅执行一次
++ 作用：给类初始化（注册类到本地或者某个应用程序上面）
+```
+class Demo
+{
+    static int x = 9;  //静态变量有两次初始化，一次默认初始化（int=>0），一次显示初始化
+    static             //静态代码块，在静态变量显示初始化之后执行
+    {
+        System.out.println("类一加载就执行的部分..."+x); 
+    }
+    static void show(){
+        System.out.println("show run");
+    }
+
+}
+```
+>> 局部代码块
+```
+class Demo {
+    int x = 9; // 成员变量有两次初始化，一次默认初始化，一次显示初始化
+    { // 构造代码块，只要创建对象就会被调用，在成员变量显示初始化之后执行。给所有对象初始化；构造函数只给对应对象针对性初始化。
+      // 这里可以定义不同构造函数的共性代码
+        System.out.println("code run----" + x);
+        System.out.println("哈哈哈哈");
+    }
+    Demo() {
+        System.out.println("demo run");
+    }
+    Demo(int x) {
+        System.out.println("demo run...." + x);
+    }
+
+}
+
+class ConstructorCodeDemo {
+    public static void main(String[] args) {
+        new Demo();
+        new Demo(5);
+        { //局部代码块 作用：可以控制局部变量的生命周期，类似for循环中的x
+            int x = 10;
+            System.out.println("demo run...." + x);
+        }
+       // System.out.println("demo run...." +x);
+        System.out.println("demo run....");
+    }
+}
+```
