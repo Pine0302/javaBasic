@@ -1,6 +1,6 @@
 class Demo
 {
-    Static int x; 
+    static int x; 
     int y = 1; 
     static
     {
