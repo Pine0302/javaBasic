@@ -1,5 +1,3 @@
-import org.w3c.dom.ls.LSException;
-
 /**
  * 笔记本电脑 鼠标 键盘 USB
  * 笔记本电脑使用USB接口 兼容各种外设 

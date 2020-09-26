@@ -21,7 +21,7 @@ import org.w3c.dom.ls.LSException;
     如果想要使用子类型的特有方法,只有子类型可以用.
     可以向下转型,强制转换.
     Animal a = new Dog();
-    (Dog) d = (Dog) a; //将a转型为Dog类型
+    Dog d = (Dog) a; //将a转型为Dog类型
     d.lookHome();
     向下转型什么时候用?当需要使用子类型的特有内容时.
 
