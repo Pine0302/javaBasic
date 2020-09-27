@@ -6,8 +6,8 @@
 
 class DuotaiTest  {
     public static void main(String[] args) {
-        Mouse mouse = new Mouse();
-        Keybord keybord = new Keybord();
+        USB mouse = new Mouse();
+        USB keybord = new Keybord();
         NoteBook noteBookA = new NoteBook();
         noteBookA.useUsb(null);
         noteBookA.useUsb(mouse);
