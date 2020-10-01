@@ -290,3 +290,10 @@ class CreateObjectTest
 			}
 		}
 	}
+
+
+public	   protected      default       private
+一个类中      ok			ok			ok				ok
+一个包中      ok			ok			ok				
+子类中        ok			ok          
+不同包中	  ok
