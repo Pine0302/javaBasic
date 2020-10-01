@@ -292,8 +292,96 @@ class CreateObjectTest
 	}
 
 
-public	   protected      default       private
-一个类中      ok			ok			ok				ok
-一个包中      ok			ok			ok				
-子类中        ok			ok          
-不同包中	  ok
+            public	   protected      default       private
+一个类中      ok			     ok			       ok			      	ok
+一个包中      ok			     ok			       ok				
+子类中        ok			     ok          
+不同包中	    ok 
+
+
+ sleep方法和wait方法异同点是什么？
+	相同点：可以让线程处于冻结状态。
+	不同点：
+		1，
+		sleep必须指定时间。
+		wait可以指定时间，也可以不指定时间。
+		2，
+		sleep时间到，线程处于临时阻塞或者运行。
+		wait如果没有时间，必须要通过notify或者notifyAll唤醒。
+		3，
+		sleep不一定非要定义在同步中。
+		wait必须定义在同步中。
+		4，
+		都定义在同步中，
+		线程执行到sleep，不会释放锁，会让出cpu执行权
+		线程执行到wait，会释放锁，会让出cpu执行权
+    5.
+    sleep是线程中的方法，但是wait是Object中的方法。
+
+
+    synchronized(obj)
+{
+	//sleep(5000);
+	wait();//0 1 2 
+	code....
+
+}
+
+
+synchronized(obj)
+{
+	notifyAll();//3
+	code....
+}
+
+
+2，线程如何停止呢？★★★★
+	stop方法过时了，看起描述发现，有其他解决方案。
+	线程结束:就是让线程任务代码执行完，run方法结束。
+	run方法咋结束呢？
+	run方法中通常都定义循环，只要控制住循环就哦了。
+	
+	注意：万一线程在任务中处于了冻结状态，那么它还能去判断标记吗？不能！
+	咋办？通过查阅stop方法的描述，发现提供了一个解决方法：
+	如果目标线程等待很长时间，则应使用 interrupt 方法来中断该等待
+	所谓的中断并不是停止线程。
+	interrupt的功能是 将线程的冻结状态清除，让线程恢复到的运行状态(让线程重新具备cpu的执行资格)。
+	因为时强制性的所以会有异常InterruptedException发生，可以在catch中捕获异常，
+	在异常处理中，改变标记让循环结束，让run方法结束。
+
+
+3，守护线程：也可以理解为后台线程，之前创建的都是前台线程。
+	只要线程调用了setDaemon(true);就可以把线程标记为守护线程。
+	前台后台线程运行时都是一样的，获取CPU的执行权执行。
+	只有结束的时候有些不同。
+	前台线程要通过run方法结束，线程结束。
+	后台线程也可以通过run方法结束，线程结束，还有另一种情况，
+	当进程中所有的前台线程都结束了，这时无论后台线程处于什么样的状态，都会结束，从而进程会结束。
+	进程结束依赖的都是前台线程。
+
+
+4，线程的优先级：用数字标识的，1-10   
+	其中默认的初始优先级时5 最明显的三个优先级 1，5，10。
+	setPriority(Thread.MAX_PRIORITY);
+
+5，线程组：ThreadGroup：可以通过Thread的构造函数明确新线程对象所属的线程组。
+	线程组的好处，可以对多个同组线程，进行统一的操作。
+	默认都属于main线程组。
+
+
+6，join方法，yield方法。
+
+7，开发中，线程的匿名内部类体现。
+//面试题：
+	new Thread(new Runnable()
+	{
+		public void run()
+		{
+			System.out.println("runnable run");
+		}
+	}){
+		public void run()
+		{
+			System.out.println("subthread run");//执行。
+		}
+	}.start();
